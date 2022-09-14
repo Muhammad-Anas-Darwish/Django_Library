@@ -9,7 +9,7 @@ urlpatterns = [
 
     # الكتب
     path('books/', BooksView.as_view()),
-    path('books/<str:pk>', BookView.as_view()),
+    path('books/<str:pk>/', BookView.as_view()),
 
     # الاستعارات
     path('metaphors/', MetaphorsView.as_view()),

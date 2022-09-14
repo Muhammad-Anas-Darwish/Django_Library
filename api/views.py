@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from api.permissions import EmployeePermissions
 from api.serializers import *
+from django.shortcuts import render
 from .models import *
 # from base.views import book
 
@@ -236,3 +237,6 @@ class GroupView(generics.ListAPIView, generics.UpdateAPIView, generics.DestroyAP
         instance = self.get_object()
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+def welcome_page(request):
+    return render(request, 'main/welcome.html')

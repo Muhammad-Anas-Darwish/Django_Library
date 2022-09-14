@@ -33,12 +33,19 @@ class MetaphorSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        # exclude = ['groups', 'user_permissions']
         exclude = ['user_permissions']
     
     def create(self, validated_data):
         validated_data['username'] = str(uuid.uuid4())
-        return MyUser.objects.create_user(**validated_data)
+
+        group = Group.objects.get(id=1) if validated_data['groups'] else 0
+
+        del validated_data['groups']
+        user = MyUser.objects.create_user(**validated_data)
+
+        if group:
+            user.groups.add(group)
+        return user
 
 class GroupsSerializer(serializers.ModelSerializer):
     class Meta:

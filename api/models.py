@@ -7,6 +7,9 @@ import uuid
 
 # المستخدم
 class MyUser(AbstractUser):
+    class Meta:
+        db_table = 'auth_user'
+
     username = models.CharField(max_length=100, primary_key=True, default=str(uuid.uuid4()), editable=False)
     phone = models.CharField(max_length=15, blank=True, null=True)
 
